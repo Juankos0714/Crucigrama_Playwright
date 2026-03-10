@@ -60,8 +60,8 @@ function ClueList({
                     isActive
                       ? "bg-[var(--clue-active-bg)] text-[var(--clue-active-text)]"
                       : isDone
-                      ? "text-[var(--clue-done-text)] hover:bg-[var(--clue-hover-bg)]"
-                      : "text-[var(--clue-text)] hover:bg-[var(--clue-hover-bg)] hover:text-[var(--clue-hover-text)]"
+                        ? "text-[var(--clue-done-text)] hover:bg-[var(--clue-hover-bg)]"
+                        : "text-[var(--clue-text)] hover:bg-[var(--clue-hover-bg)] hover:text-[var(--clue-hover-text)]"
                   )}
                 >
                   <span
@@ -95,30 +95,34 @@ export default function CluesPanel({
 }: CluesPanelProps) {
   return (
     <aside
-      className="flex flex-col h-full overflow-hidden rounded-lg border border-[var(--panel-border)] bg-[var(--panel-bg)] shadow-xl"
+      className="flex flex-col h-full overflow-hidden lg:rounded-lg border-x-0 lg:border-x border-y-0 lg:border-y border-[var(--panel-border)] bg-[var(--panel-bg)] shadow-none lg:shadow-xl"
       aria-label="Crossword clues"
     >
-      <div className="px-4 py-3 border-b border-[var(--panel-border)]">
+      <div className="px-4 py-3 border-b border-[var(--panel-border)] hidden lg:block">
         <h2 className="text-sm font-semibold text-[var(--panel-title)] tracking-wide">
           Pistas
         </h2>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-3 py-4 flex flex-col gap-6 scrollbar-thin">
-        <ClueList
-          title="Horizontal"
-          words={acrossWords}
-          activeWordId={activeWordId}
-          completedWordIds={completedWordIds}
-          onClueClick={onClueClick}
-        />
-        <ClueList
-          title="Vertical"
-          words={downWords}
-          activeWordId={activeWordId}
-          completedWordIds={completedWordIds}
-          onClueClick={onClueClick}
-        />
+      <div className="flex-1 overflow-y-auto lg:overflow-y-auto px-3 py-4 flex flex-col sm:flex-row lg:flex-col gap-6 scrollbar-thin max-h-[40vh] lg:max-h-none">
+        <div className="flex-1 min-w-[150px]">
+          <ClueList
+            title="Horizontal"
+            words={acrossWords}
+            activeWordId={activeWordId}
+            completedWordIds={completedWordIds}
+            onClueClick={onClueClick}
+          />
+        </div>
+        <div className="flex-1 min-w-[150px]">
+          <ClueList
+            title="Vertical"
+            words={downWords}
+            activeWordId={activeWordId}
+            completedWordIds={completedWordIds}
+            onClueClick={onClueClick}
+          />
+        </div>
       </div>
     </aside>
   );

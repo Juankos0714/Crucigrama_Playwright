@@ -52,7 +52,7 @@ export default function Cell({
   if (isBlack) {
     return (
       <div
-        className="w-8 h-8 sm:w-9 sm:h-9 bg-[var(--cell-black)]"
+        className="w-[min(2rem,6vw)] h-[min(2rem,6vw)] sm:w-9 sm:h-9 bg-[var(--cell-black)]"
         aria-hidden="true"
       />
     );
@@ -76,14 +76,14 @@ export default function Cell({
   return (
     <div
       className={cn(
-        "relative w-8 h-8 sm:w-9 sm:h-9 border border-[var(--cell-border)] rounded-sm transition-colors duration-150",
+        "relative w-[min(2rem,6vw)] h-[min(2rem,6vw)] sm:w-9 sm:h-9 border border-[var(--cell-border)] rounded-sm transition-colors duration-150",
         state === "empty" || state === "filled" ? stateClasses[state] : stateClasses[state],
         (state === "empty" || state === "filled") && highlightClass
       )}
     >
       {/* Clue number */}
       {number !== undefined && number > 0 && (
-        <span className="absolute top-0 left-0.5 text-[7px] leading-none font-mono text-[var(--cell-number)] select-none pointer-events-none z-10">
+        <span className="absolute top-0 left-0.5 text-[clamp(6px,1.5vw,10px)] leading-none font-mono text-[var(--cell-number)] select-none pointer-events-none z-10">
           {number}
         </span>
       )}
@@ -97,8 +97,8 @@ export default function Cell({
         value={userValue}
         aria-label={`Row ${row + 1}, Column ${col + 1}${number ? `, clue ${number}` : ""}`}
         className={cn(
-          "absolute inset-0 w-full h-full text-center text-sm font-bold uppercase bg-transparent border-none outline-none cursor-pointer caret-transparent select-none",
-          "pt-2 sm:pt-2"
+          "absolute inset-0 w-full h-full text-center text-[clamp(0.75rem,3vw,1.125rem)] font-bold uppercase bg-transparent border-none outline-none cursor-pointer caret-transparent select-none",
+          "pt-1 sm:pt-2"
         )}
         onFocus={() => onFocus(row, col)}
         onClick={() => onClick(row, col)}
