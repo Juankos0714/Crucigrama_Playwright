@@ -3,7 +3,12 @@
  * Responsible for placing words on a 2D grid with shared letter intersections.
  */
 
-import { CLUES, ClueEntry } from "./crossword-data";
+import { ENCRYPTED_CLUES, ClueEntry } from "./crossword-data";
+import CryptoJS from "crypto-js";
+
+const secretKey = process.env.NEXT_PUBLIC_CROSSWORD_SECRET || "plw_cr0ssw0rd_s3cur3_k3y_98Xq!";
+const bytes = CryptoJS.AES.decrypt(ENCRYPTED_CLUES, secretKey);
+const CLUES: ClueEntry[] = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 
 export type Direction = "across" | "down";
 
